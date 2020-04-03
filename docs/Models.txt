@@ -1,0 +1,42 @@
+[ Tabelas Banco de Dados ]
+
+Users {
+  id
+  name
+  nickname
+  email
+  password
+  email_verified
+  token_recover_password
+}
+
+Notes {
+  id
+  user_id
+  title
+  content
+  created_at
+}
+
+
+[ Funcionalidades ]
+
+- Fazer login
+- Criar conta
+- Recuperar senha
+
+- Adicionar notas
+- Excluir notas
+- Editar notas
+- Listar notas de um usuário
+- Buscar notas por título ou conteúdo e data
+
+- Editar perfil
+
+
+[ Anotações ]
+
+- Envio de email para confirmação de cadastro
+- Envio de email para recuperação de senha
+- Geração de token de acesso durante login
+
