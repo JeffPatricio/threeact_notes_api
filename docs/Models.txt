@@ -1,5 +1,3 @@
-[ Tabelas Banco de Dados ]
-
 Users {
   id
   name

@@ -1,0 +1,41 @@
+User {
+  create
+  read
+  update
+}
+
+Notes {
+  create
+  index
+  read
+  update
+  delete
+}
+
+Session {
+  create
+}
+
+Email {
+  create
+}
+
+ForgetPassword {
+  create
+  read
+  delete
+}
+
+// login
+// recuperar senha
+// atualizar senha
+
+// buscar notas
+// adicionar nota
+// excluir nota
+// editar nota
+
+// criar usuario
+// buscar perfil
+// atualizar perfil
+// ativar perfil
