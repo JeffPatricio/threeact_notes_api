@@ -6,11 +6,11 @@ export const requestLog = (req, res, next) => {
     FgBlue: "\x1b[34m%s\x1b[0m",
     FgMagenta: "\x1b[35m%s\x1b[0m"
   }
-  const now = new Date();
-  const date = now.getDate() + "/" + now.getMonth() + "/" + now.getFullYear();
-  const time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
-  console.log(colors.FgMagenta, `[${date + " - " + time}] - IP: ${req.ip} Method: ${req.method}; URL: ${req.url}`);
-  return next();
+  const now = new Date()
+  const date = now.getDate() + "/" + now.getMonth() + "/" + now.getFullYear()
+  const time = now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds()
+  console.log(colors.FgMagenta, `[${date + " - " + time}] - IP: ${req.ip} Method: ${req.method} URL: ${req.url}`)
+  return next()
 }
 
 export const isEmail = (email) => {
