@@ -15,9 +15,9 @@ export default {
       const [id] = await connection('users').insert({ name, nickname, email, password: passCrypt })
       if (id) {
         await mailController.activationEmail(name, email)
-        return res.json({ success: true, message: 'Usuário cadastrado' })
+        return res.status(201).json({ success: true, message: 'Usuário cadastrado' })
       } else {
-        return res.json({ success: false, message: 'Não foi possível cadastrar usuário' })
+        return res.status(400).json({ success: false, message: 'Não foi possível cadastrar usuário' })
       }
     } catch (error) {
       return res.status(500).json({ success: false, message: err.toString() })
