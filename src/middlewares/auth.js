@@ -15,4 +15,4 @@ const verifyAuth = async (req, res, next) => {
 	}
 }
 
-export default verifyAuth
+export default verifyAuth;
