@@ -18,7 +18,13 @@ export default {
 	},
 
 	async index(req, res) {
-
+		try {
+			const { userId } = req;
+			const notes = await connection('notes').where('user_id', userId).select(['title', 'content', 'created_at']);
+			return res.status(200).json(notes);
+		} catch (err) {
+			return res.status(500).json({ success: false, message: err.toString() });
+		}
 	},
 
 	async read(req, res) {
