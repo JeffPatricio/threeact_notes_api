@@ -23,6 +23,7 @@ routes.use(Auth);
 
 // Rotas com autenticação
 routes.get('/users/:userId', UserController.read);
+routes.put('/users', UserController.update);
 routes.post('/notes', NoteController.create);
 routes.get('/notes', NoteController.index);
 routes.put('/notes/:noteId', NoteController.update);

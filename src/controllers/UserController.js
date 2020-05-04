@@ -36,21 +36,37 @@ export default {
 		}
 	},
 	async update(req, res) {
+		const { userId } = req;
 
-		const { userId, name, nickname, oldPassword, newPassword, confirmPassword } = req.body
+		const { name, nickname, oldPassword, newPassword, confirmPassword } = req.body;
 
-		if (!name || !nickname) return res.status(400).json({ success: false, message: 'Necessário preencher todos os campos' })
+		if (!name || !nickname) return res.status(400).json({ success: false, message: 'Favor informar os campos destacados' });
 
-		const user = await connection('users').where('id', userId).first().select(['password'])
+		const user = await connection('users').where('id', userId).first().select(['id', 'password']);
+		if (!user) res.status(404).json({ success: false, message: 'Não foi possível encontrar os dados do usuário' });
 
-		return !user ? res.status(404).json({ success: false, message: 'Não foi possível encontrar os dados do usuário' }) : res.json({ success: true, user })
+		if (user.id === userId) {
+			if (!oldPassword || !newPassword || !confirmPassword) {
+				var updated = await connection('users').where('id', userId).update({
+					name,
+					nickname
+				});
+			} else {
+				const passwordMatch = bcryptjs.compareSync(oldPassword, user.password);
+				if (!passwordMatch) return res.status(401).json({ success: false, message: 'A senha informada não corresponde com a senha cadastrada' });
+				if (newPassword !== confirmPassword) return res.status(401).json({ success: false, message: 'As senhas não combinam' });
 
-		// bcryptjs.compareSync(senhaDigitada, senhaBD)
+				var updated = await connection('users').where('id', userId).update({
+					name,
+					nickname,
+					password: await bcryptjs.hashSync(newPassword, 10)
+				});
+			}
 
-
-
-
-
+			return updated === 1 ? res.status(200).json({ success: true, message: 'Usuário atualizado' }) : res.status(200).json({ success: false, message: 'Não foi possível atualizar usuário' })
+		} else {
+			return res.status(401).json({ success: false, message: 'Não é possível alterar dados de outro usuário' });
+		}
 	},
 }
 
