@@ -24,5 +24,6 @@ routes.use(Auth);
 // Rotas com autenticação
 routes.get('/users/:userId', UserController.read);
 routes.post('/notes', NoteController.create);
+routes.get('/notes', NoteController.index);
 
 export default routes;
