@@ -1,4 +1,5 @@
 import connection from '../database/connection';
+import moment from 'moment';
 
 export default {
 	async create(req, res) {
@@ -36,7 +37,35 @@ export default {
 	},
 
 	async update(req, res) {
+		try {
+			const { userId } = req;
+			const { noteId } = req.params;
+			const note = await connection('notes').where('id', noteId).select(['user_id']).first();
+			if (note) {
+				if (note.user_id === userId) {
+					const { title, content } = req.body;
+					if (!title || !content) return res.status(400).json({ success: false, message: 'Favor informar os campos destacados' });
 
+					const update = await connection('notes').where('id', noteId).update({
+						title,
+						content,
+						updated_at: moment().format()
+					});
+
+					if (update === 1) {
+						return res.status(200).json({ success: true, message: 'Anotação atualizada' });
+					} else {
+						return res.status(200).json({ success: false, message: 'Não foi possível atualizar anotação' });
+					}
+				} else {
+					return res.status(401).json({ success: false, message: 'Usuário não é dono da anotação' });
+				}
+			} else {
+				return res.status(400).json({ success: false, message: 'Não foi possível localizar anotação' });
+			}
+		} catch (err) {
+			return res.status(500).json({ success: false, message: err.toString() });
+		}
 	},
 
 	async delete(req, res) {

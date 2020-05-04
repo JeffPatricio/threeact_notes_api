@@ -25,5 +25,6 @@ routes.use(Auth);
 routes.get('/users/:userId', UserController.read);
 routes.post('/notes', NoteController.create);
 routes.get('/notes', NoteController.index);
+routes.put('/notes/:noteId', NoteController.update);
 
 export default routes;
