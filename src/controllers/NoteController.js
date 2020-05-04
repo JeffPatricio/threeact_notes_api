@@ -63,7 +63,7 @@ export default {
 			} else {
 				return res.status(400).json({ success: false, message: 'Não foi possível localizar anotação' });
 			}
-		} catch (error) {
+		} catch (err) {
 			return res.status(500).json({ success: false, message: err.toString() });
 		}
 	},
