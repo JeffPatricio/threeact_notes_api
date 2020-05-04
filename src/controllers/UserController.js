@@ -46,28 +46,22 @@ export default {
 		if (!user) res.status(404).json({ success: false, message: 'Não foi possível encontrar os dados do usuário' });
 
 		if (user.id === userId) {
-			if (!oldPassword || !newPassword || !confirmPassword) {
-				var updated = await connection('users').where('id', userId).update({
-					name,
-					nickname
-				});
-			} else {
+			const dataUpdate = { name, nickname };
+
+			if (oldPassword || newPassword || confirmPassword) {
 				const passwordMatch = bcryptjs.compareSync(oldPassword, user.password);
 				if (!passwordMatch) return res.status(401).json({ success: false, message: 'A senha informada não corresponde com a senha cadastrada' });
 				if (newPassword !== confirmPassword) return res.status(401).json({ success: false, message: 'As senhas não combinam' });
-
-				var updated = await connection('users').where('id', userId).update({
-					name,
-					nickname,
-					password: await bcryptjs.hashSync(newPassword, 10)
-				});
+				dataUpdate['password'] = await bcryptjs.hashSync(newPassword, 10);
 			}
 
-			return updated === 1 ? res.status(200).json({ success: true, message: 'Usuário atualizado' }) : res.status(200).json({ success: false, message: 'Não foi possível atualizar usuário' })
+			const updated = await connection('users').where('id', userId).update(dataUpdate);
+
+			return updated === 1 ? res.status(200).json({ success: true, message: 'Usuário atualizado' }) : res.status(200).json({ success: false, message: 'Não foi possível atualizar usuário' });
 		} else {
 			return res.status(401).json({ success: false, message: 'Não é possível alterar dados de outro usuário' });
 		}
-	},
+	}
 }
 
 
