@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="http://localhost:8080/public/forgotPassword/css/styles.css">
+	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+	<title>Notes</title>
+</head>
+
+<body>
+	<div id="main">
+		<div id="container">
+			<div id="info">
+				<img id="logo" src="http://localhost:8080/public/forgotPassword/assets/logo.png" />
+				<p>Desfrute a liberdade de ter suas anotações em qualquer lugar.</p>
+				<img id="ilustration" src="http://localhost:8080/public/forgotPassword/assets/ilustration.svg" />
+			</div>
+			<div id="feedback">
+				<h2 id="title">Alterar Senha</h2>
+				<p id="textInfo">Informe uma nova senha para o acesso à plataforma:</p>
+				<input type="password" placeholder="Nova senha" id="password" />
+				<input type="password" placeholder="Confirme a nova senha" id="confirmPassword" />
+				<button id="btnSave">Salvar</button>
+				<button onclick="window.location.href='http://www.w3schools.com'" id="btnLogin" style="display: none;">Ir para o
+					Login</button>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script>
+	const tokenRecover = window.location.pathname.replace('/forgotPassword/', '');
+	const button = document.getElementById('btnSave');
+	button.onclick = async () => {
+		const password = document.getElementById('password').value;
+		const confirmPassword = document.getElementById('confirmPassword').value;
+		if (!password || !confirmPassword) return alert({ icon: 'warning', title: 'Inválido', text: 'Necessário preencher todos os campos', confirmButtonColor: '#1c8760' });
+		if (password !== confirmPassword) return alert({ icon: 'warning', title: 'Inválido', text: 'As senhas inseridas não conferem', confirmButtonColor: '#1c8760' });
+		if (password.length < 6 || confirmPassword.length < 6) return alert({ icon: 'warning', title: 'Inválido', text: 'A senha deve conter no mínimo 6 caracteres', confirmButtonColor: '#1c8760' });
+		showLoadingButton(button);
+		const headers = new Headers();
+		headers.append('token', tokenRecover);
+		headers.append("Content-Type", "application/json");
+		fetch('http://localhost:8080/forgotPassword', { headers, method: 'PUT', body: JSON.stringify({ password, confirmPassword }) }).then(res => res.json()).then(res => {
+			if (res.success) {
+				document.getElementById('title').innerText = 'Senha alterada!';
+				document.getElementById('textInfo').innerText = 'Faça login para prosseguir com suas anotações.';
+				document.getElementById('password').style.display = 'none';
+				document.getElementById('confirmPassword').style.display = 'none';
+				document.getElementById('btnSave').style.display = 'none';
+				document.getElementById('btnLogin').style.display = 'block';
+				return alert({ icon: 'info', title: 'Sucesso', text: 'A senha foi alterada com sucesso', confirmButtonColor: '#1c8760' });
+			}
+			alert({ icon: 'error', title: 'Erro', text: res.message, confirmButtonColor: '#1c8760' });
+		}).catch(err => {
+			alert({ icon: 'error', title: 'Erro', text: err.message, confirmButtonColor: '#1c8760' });
+		}).finally(() => {
+			hideLoadingButton(button);
+		})
+	}
+	const alert = (configAlert) => {
+		Swal.fire(configAlert);
+		document.getElementsByTagName('body')[0].classList = '';
+	}
+	const showLoadingButton = (button) => {
+		button.innerHTML = '<img src="http://localhost:8080/public/forgotPassword/assets/loading.svg" style="width: 20px;">';
+		button.style.padding = '5px 40px';
+		button.disabled = true;
+	}
+	const hideLoadingButton = (button) => {
+		button.innerHTML = 'Salvar';
+		button.style.padding = '10px 40px';
+		button.disabled = false;
+	}
+</script>
+
+</html>
