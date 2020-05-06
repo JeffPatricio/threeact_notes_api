@@ -1,6 +1,20 @@
 * {
 	outline: 0 !important;
 }
+::placeholder {
+	color: #AAA;
+}
+
+input {
+	background-color: #fff;
+	border-radius: 3px;
+	margin-bottom: 8px;
+	border: 0;
+	width: 80%;
+	padding: 10px;
+	max-height: 40px;
+	font-size: 16px;
+}
 html,
 body,
 #main {
