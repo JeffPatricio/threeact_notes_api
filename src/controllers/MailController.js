@@ -1,11 +1,11 @@
-import mustache from 'mustache';
-import mail from '../config/mail';
-import { encrypt } from '../utils/index';
-import templateActivation from '../templates/mail/accountActivation';
-import templatePassword from '../templates/mail/forgetPassword';
-import 'dotenv/config';
+const mustache = require('mustache');
+const mail = require('../config/mail');
+const { encrypt } = require('../utils/index');
+const templateActivation = require('../templates/mail/accountActivation');
+const templatePassword = require('../templates/mail/forgetPassword');
+require('dotenv/config');
 
-export default {
+module.exports = {
 	activationEmail(name, email) {
 		return new Promise((resolve) => {
 			const token = encrypt(email);

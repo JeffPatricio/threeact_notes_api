@@ -1,10 +1,10 @@
-import bcryptjs from 'bcryptjs';
-import path from 'path';
-import connection from '../database/connection';
-import { isEmail, simpleHash, decrypt } from '../utils/index';
-import mailController from './MailController';
+const bcryptjs = require('bcryptjs');
+const path = require('path');
+const connection = require('../database/connection');
+const { isEmail, simpleHash, decrypt } = require('../utils/index');
+const mailController = require('./MailController');
 
-export default {
+module.exports = {
 	async create(req, res) {
 		try {
 			const { email } = req.body;

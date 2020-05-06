@@ -1,8 +1,8 @@
-import path from 'path';
-import connection from '../database/connection';
-import { decrypt, isEmail } from '../utils/index';
+const path = require('path');
+const connection = require('../database/connection');
+const { decrypt, isEmail } = require('../utils/index');
 
-export default {
+module.exports = {
 	async create(req, res) {
 		try {
 			const { token } = req.params;

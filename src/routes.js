@@ -1,13 +1,13 @@
-import express from 'express';
-import path from 'path';
-import UserController from './controllers/UserController';
-import ActivationAccountController from './controllers/ActivationAccountController';
-import SessionController from './controllers/SessionController';
-import ForgotPasswordController from './controllers/ForgotPasswordController';
-import NoteController from './controllers/NoteController';
-import DocController from './controllers/DocController';
-import Auth from './middlewares/auth';
-import { requestLog } from './utils';
+const express = require('express');
+const path = require('path');
+const UserController = require('./controllers/UserController');
+const ActivationAccountController = require('./controllers/ActivationAccountController');
+const SessionController = require('./controllers/SessionController');
+const ForgotPasswordController = require('./controllers/ForgotPasswordController');
+const NoteController = require('./controllers/NoteController');
+const DocController = require('./controllers/DocController');
+const Auth = require('./middlewares/auth');
+const { requestLog } = require('./utils');
 
 const routes = express.Router();
 
@@ -34,4 +34,4 @@ routes.get('/notes', NoteController.index);
 routes.put('/notes/:noteId', NoteController.update);
 routes.delete('/notes/:noteId', NoteController.delete);
 
-export default routes;
+module.exports = routes;

@@ -1,7 +1,7 @@
-import connection from '../database/connection';
-import moment from 'moment';
+const connection = require('../database/connection');
+const moment = require('moment');
 
-export default {
+module.exports = {
 	async create(req, res) {
 		try {
 			const { userId } = req;

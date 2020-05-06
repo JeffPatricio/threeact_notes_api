@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"scripts": {
 		"dev": "nodemon src/index.js",
-		"deploy": "sucrase-node src/index.js"
+		"deploy": "node src/index.js"
 	},
 	"dependencies": {
 		"bcryptjs": "^2.4.3",

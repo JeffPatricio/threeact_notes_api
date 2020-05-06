@@ -1,4 +1,4 @@
-export default {
+module.exports = {
 	async read(req, res) {
 		return res.json({
 			'app': 'notes',

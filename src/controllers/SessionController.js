@@ -1,10 +1,10 @@
-import bcryptjs from 'bcryptjs';
-import jwt from 'jsonwebtoken';
-import connection from '../database/connection';
-import { isEmail } from '../utils/index';
-import authConfig from '../config/auth';
+const bcryptjs = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const connection = require('../database/connection');
+const { isEmail } = require('../utils/index');
+const authConfig = require('../config/auth');
 
-export default {
+module.exports = {
 	async create(req, res) {
 		try {
 			const { email, password } = req.body;
