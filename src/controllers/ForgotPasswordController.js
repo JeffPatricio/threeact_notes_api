@@ -42,7 +42,7 @@ export default {
 			const { password, confirmPassword } = req.body;
 			if (!token) return res.status(403).json({ success: false, code: 'invalid_token', message: 'Solititação para alteração de senha não autorizada' });
 			if ((!password || !confirmPassword) || (password !== confirmPassword)) return res.status(400).json({ success: false, code: 'invalid_data', message: 'As senhas inseridas não conferem' });
-			if (password.length < 6 || confirmPassword.length < 6) return res.status(400).json({ success: false, code: 'invalid_data', message: 'A senha deve conter no mínimo 6 vcaracteres' });
+			if (password.length < 6 || confirmPassword.length < 6) return res.status(400).json({ success: false, code: 'invalid_data', message: 'A senha deve conter no mínimo 6 caracteres' });
 			const [tokenRequest, emailEncrypt] = token.split('/');
 			const email = decrypt(emailEncrypt);
 			if (!isEmail(email) || !email) return res.status(403).json({ success: false, code: 'invalid_token', message: 'Solititação para alteração de senha não autorizada' });
