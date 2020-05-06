@@ -5,7 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="http://localhost:8080/public/forgotPassword/css/styles.css">
+	<link rel="stylesheet" href="https://notesthreeact.herokuapp.com/public/forgotPassword/css/styles.css">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 	<title>Notes</title>
@@ -15,9 +15,9 @@
 	<div id="main">
 		<div id="container">
 			<div id="info">
-				<img id="logo" src="http://localhost:8080/public/forgotPassword/assets/logo.png" />
+				<img id="logo" src="https://notesthreeact.herokuapp.com/public/forgotPassword/assets/logo.png" />
 				<p>Desfrute a liberdade de ter suas anotações em qualquer lugar.</p>
-				<img id="ilustration" src="http://localhost:8080/public/forgotPassword/assets/ilustration.svg" />
+				<img id="ilustration" src="https://notesthreeact.herokuapp.com/public/forgotPassword/assets/ilustration.svg" />
 			</div>
 			<div id="feedback">
 				<h2 id="title">Alterar Senha</h2>
@@ -45,7 +45,7 @@
 		const headers = new Headers();
 		headers.append('token', tokenRecover);
 		headers.append("Content-Type", "application/json");
-		fetch('http://localhost:8080/forgotPassword', { headers, method: 'PUT', body: JSON.stringify({ password, confirmPassword }) }).then(res => res.json()).then(res => {
+		fetch('https://notesthreeact.herokuapp.com/forgotPassword', { headers, method: 'PUT', body: JSON.stringify({ password, confirmPassword }) }).then(res => res.json()).then(res => {
 			if (res.success) {
 				document.getElementById('title').innerText = 'Senha alterada!';
 				document.getElementById('textInfo').innerText = 'Faça login para prosseguir com suas anotações.';
@@ -67,7 +67,7 @@
 		document.getElementsByTagName('body')[0].classList = '';
 	}
 	const showLoadingButton = (button) => {
-		button.innerHTML = '<img src="http://localhost:8080/public/forgotPassword/assets/loading.svg" style="width: 20px;">';
+		button.innerHTML = '<img src="https://notesthreeact.herokuapp.com/public/forgotPassword/assets/loading.svg" style="width: 20px;">';
 		button.style.padding = '5px 40px';
 		button.disabled = true;
 	}
