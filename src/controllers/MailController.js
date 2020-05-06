@@ -15,10 +15,10 @@ export default {
 			mail.transporter.close();
 			mail.transporter.sendMail(mail.options, (error, info) => {
 				if (error) {
-					console.log(`Erro ao enviar email de ativação-> ${error} `);
+					console.log('Error sending activation email: ', error.toString());
 					return resolve();
 				} else {
-					console.log(`Email de ativação enviado para ${email} -> ${info.response} `);
+					console.log(`Activation email sent to ${email}: ${info.response}`);
 					return resolve();
 				}
 			})
@@ -33,10 +33,10 @@ export default {
 			mail.transporter.close();
 			mail.transporter.sendMail(mail.options, (error, info) => {
 				if (error) {
-					console.log(`Erro ao enviar email de recuperação de senha-> ${error} `);
+					console.log('Error sending password recovery email: ', error.toString());
 					return resolve();
 				} else {
-					console.log(`Email de recuperação de senha enviado para ${email} -> ${info.response} `);
+					console.log(`Password recovery email sent to ${email}: ${info.response}`);
 					return resolve();
 				}
 			})

@@ -1,15 +1,13 @@
 exports.up = (knex) => {
   return knex.schema.createTable('users', (table) => {
-
-    table.increments()
-
-    table.string('name').notNullable()
-    table.string('nickname')
-    table.string('email').notNullable()
-    table.string('password').notNullable()
-    table.boolean('email_verified').defaultTo(false)
-    table.string('token_recover_password')
-    table.unique('email')
+    table.increments();
+    table.string('name').notNullable();
+    table.string('nickname');
+    table.string('email').notNullable();
+    table.string('password').notNullable();
+    table.boolean('email_verified').defaultTo(false);
+    table.string('token_recover_password');
+    table.unique('email');
   })
 }
 

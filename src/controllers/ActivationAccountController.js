@@ -14,10 +14,9 @@ export default {
 			if (user.email_verified) return res.sendFile(srcSuccess);
 			if (!user) return res.sendFile(srcError);
 			const active = await connection('users').where({ email }).first().update({ email_verified: true });
-			if (active) return res.sendFile(srcSuccess);
-			return res.sendFile(srcError);
+			return res.sendFile(active ? srcSuccess : srcError);
 		} catch (err) {
-			console.log('Erro ao ativar conta: ', err.toString());
+			console.log('Error activating account: ', err.toString());
 			return res.sendFile(srcError);
 		}
 	}

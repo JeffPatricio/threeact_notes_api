@@ -15,16 +15,17 @@ routes.use(requestLog);
 
 routes.get('/', (_, res) => res.sendFile(path.resolve(__dirname, '..', 'public', 'status', 'status.html')));
 routes.get('/favicon.ico', (_, res) => res.sendFile(path.resolve(__dirname, '..', 'public', 'favicon.ico')));
-routes.get('/account/:token', ActivationAccountController.create);
+
 routes.post('/users', UserController.create);
 routes.post('/session', SessionController.create);
 routes.post('/forgotPassword', ForgotPasswordController.create);
 routes.get('/forgotPassword/:token/:emailHash', ForgotPasswordController.read);
 routes.put('/forgotPassword', ForgotPasswordController.update);
+routes.get('/account/:token', ActivationAccountController.create);
 
 routes.use(Auth);
 
-routes.get('/users/:userId', UserController.read);
+routes.get('/users', UserController.read);
 routes.put('/users', UserController.update);
 routes.post('/notes', NoteController.create);
 routes.get('/notes', NoteController.index);
