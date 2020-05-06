@@ -1,5 +1,5 @@
-import nodemailer from 'nodemailer'
-import 'dotenv/config'
+import nodemailer from 'nodemailer';
+import 'dotenv/config';
 
 export default {
   transporter: nodemailer.createTransport({

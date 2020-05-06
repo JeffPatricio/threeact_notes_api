@@ -6,7 +6,6 @@ import authConfig from '../config/auth';
 
 export default {
 	async create(req, res) {
-
 		const { email, password } = req.body;
 		if (!email || !password) return res.status(400).json({ success: false, message: 'JSON inválido' });
 		if (!isEmail(email)) return res.status(400).json({ success: false, message: 'E-mail inválido' });

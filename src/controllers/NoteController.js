@@ -32,17 +32,12 @@ export default {
 		}
 	},
 
-	async read(req, res) {
-
-	},
-
 	async update(req, res) {
 		try {
 			const { userId } = req;
 			const { noteId } = req.params;
 			const { title, content } = req.body;
 			if (!title || !content) return res.status(400).json({ success: false, message: 'Favor informar os campos destacados' });
-
 			const note = await connection('notes').where('id', noteId).select(['user_id']).first();
 			if (note) {
 				if (note.user_id === userId) {
@@ -51,14 +46,11 @@ export default {
 						content,
 						updated_at: moment().format()
 					});
-
 					return updated === 1 ? res.status(200).json({ success: true, message: 'Anotação atualizada' }) : res.status(200).json({ success: false, message: 'Não foi possível atualizar anotação' })
-				} else {
-					return res.status(401).json({ success: false, message: 'Usuário não é dono da anotação' });
 				}
-			} else {
-				return res.status(400).json({ success: false, message: 'Não foi possível localizar anotação' });
+				return res.status(401).json({ success: false, message: 'Usuário não é dono da anotação' });
 			}
+			return res.status(400).json({ success: false, message: 'Não foi possível localizar anotação' });
 		} catch (err) {
 			return res.status(500).json({ success: false, message: err.toString() });
 		}
@@ -68,19 +60,15 @@ export default {
 		try {
 			const { userId } = req;
 			const { noteId } = req.params;
-
 			const note = await connection('notes').where('id', noteId).select(['user_id']).first();
 			if (note) {
 				if (note.user_id === userId) {
 					const deleted = await connection('notes').where('id', noteId).delete();
-
 					return deleted === 1 ? res.status(200).json({ success: true, message: 'Anotação excluida' }) : res.status(200).json({ success: false, message: 'Não foi possível excluir anotação' })
-				} else {
-					return res.status(401).json({ success: false, message: 'Usuário não é dono da anotação' });
 				}
-			} else {
-				return res.status(400).json({ success: false, message: 'Não foi possível localizar anotação' });
+				return res.status(401).json({ success: false, message: 'Usuário não é dono da anotação' });
 			}
+			return res.status(400).json({ success: false, message: 'Não foi possível localizar anotação' });
 		} catch (err) {
 			return res.status(500).json({ success: false, message: err.toString() });
 		}

@@ -9,4 +9,4 @@ export default `
     <p>{{ url }}</p>
 </body>
 </html>
-`
+`;

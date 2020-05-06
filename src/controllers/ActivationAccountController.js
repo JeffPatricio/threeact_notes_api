@@ -1,6 +1,6 @@
-import path from 'path'
-import connection from '../database/connection'
-import { decrypt, isEmail } from '../utils/index'
+import path from 'path';
+import connection from '../database/connection';
+import { decrypt, isEmail } from '../utils/index';
 
 export default {
 	async create(req, res) {
