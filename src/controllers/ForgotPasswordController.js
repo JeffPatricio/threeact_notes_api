@@ -50,7 +50,7 @@ module.exports = {
 			if (!user) return res.status(404).json({ success: false, code: 'unknown_user', message: 'Não foi possível encontrar o usuário solicitado' });
 			if (user.token_recover_password !== tokenRequest) return res.status(403).json({ success: false, code: 'invalid_token', message: 'Solititação para alteração de senha não autorizada' });
 			const passCrypt = await bcryptjs.hashSync(password, 10);
-			const updated = await connection('users').where({ email }).first().update({ token_recover_password: '', password: passCrypt });
+			const updated = await connection('users').where({ email }).first().update({ email_verified: true, token_recover_password: '', password: passCrypt });
 			return updated ?
 				res.json({ success: true, message: 'Senha alterada com sucesso!' }) :
 				res.status(400).json({ success: false, code: 'unknown_error', message: 'Ocorreu um erro ao realizar a atualização de senha' });
