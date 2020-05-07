@@ -20,7 +20,7 @@ module.exports = {
 		try {
 			const { userId } = req;
 			const notes = await connection('notes').where('user_id', userId).select(['title', 'content', 'created_at']);
-			return notes.length > 0 ? res.status(200).json({ success: true, content: notes }) : res.status(200).json({ success: false, code: 'unknown_error', content: notes });
+			return res.status(200).json({ success: true, content: notes });
 		} catch (err) {
 			console.log('Error fetching registered notes: ', err.toString());
 			return res.status(500).json({ success: false, code: 'unknown_error', message: err.toString() });
